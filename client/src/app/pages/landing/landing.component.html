@@ -67,7 +67,7 @@
             @for (avatar of avatars; track avatar.name) {
               <button
                 class="avatar-btn"
-                [class.selected]="selectedAvatar === avatar.emoji"
+                [class.selected]="selectedAvatar === avatar.name"
                 (click)="selectAvatar(avatar)"
                 [title]="avatar.name"
               >
