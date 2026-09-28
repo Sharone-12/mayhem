@@ -1,0 +1,8 @@
+{
+  "buildCommand": "cd client && npm install --legacy-peer-deps && npx ng build --configuration production",
+  "outputDirectory": "client/dist/client/browser",
+  "framework": null,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
