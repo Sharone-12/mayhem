@@ -1,0 +1,86 @@
+<div class="game-shell">
+  <!-- Stock Ticker Bar -->
+  <div class="ticker-bar">
+    <div class="ticker-track">
+      <div class="ticker-content">
+        @for (company of companies; track company._id) {
+          <span class="ticker-item">
+            <span class="ticker-name">{{ company.name }}</span>
+            <span class="ticker-price">&#8377;{{ company.stockPrice | number:'1.2-2' }}</span>
+            <span class="ticker-change"
+              [class.positive]="(company.stockPrice - (company.previousPrice || company.stockPrice)) >= 0"
+              [class.negative]="(company.stockPrice - (company.previousPrice || company.stockPrice)) < 0">
+              {{ (company.stockPrice - (company.previousPrice || company.stockPrice)) >= 0 ? '+' : '' }}{{ (((company.stockPrice - (company.previousPrice || company.stockPrice)) / (company.previousPrice || company.stockPrice)) * 100) | number:'1.1-1' }}%
+            </span>
+          </span>
+        }
+        <!-- Duplicate for seamless scroll -->
+        @for (company of companies; track company._id; let i = $index) {
+          <span class="ticker-item" [attr.aria-hidden]="true">
+            <span class="ticker-name">{{ company.name }}</span>
+            <span class="ticker-price">&#8377;{{ company.stockPrice | number:'1.2-2' }}</span>
+            <span class="ticker-change"
+              [class.positive]="(company.stockPrice - (company.previousPrice || company.stockPrice)) >= 0"
+              [class.negative]="(company.stockPrice - (company.previousPrice || company.stockPrice)) < 0">
+              {{ (company.stockPrice - (company.previousPrice || company.stockPrice)) >= 0 ? '+' : '' }}{{ (((company.stockPrice - (company.previousPrice || company.stockPrice)) / (company.previousPrice || company.stockPrice)) * 100) | number:'1.1-1' }}%
+            </span>
+          </span>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Header -->
+  <header class="game-header">
+    <div class="header-left">
+      <span class="round-badge">ROUND {{ currentRound }}</span>
+      <span class="phase-label">{{ phaseLabel }}</span>
+    </div>
+    <div class="header-right">
+      <span class="timer">{{ formattedTime }}</span>
+      <button class="leaderboard-toggle" (click)="toggleLeaderboard()">
+        {{ showLeaderboard ? 'Hide' : 'Scores' }}
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="game-main">
+    @switch (currentPhase) {
+      @case ('briefing') {
+        <app-briefing></app-briefing>
+      }
+      @case ('ceo') {
+        <app-ceo-phase></app-ceo-phase>
+      }
+      @case ('market') {
+        <app-market-phase></app-market-phase>
+      }
+      @case ('recap') {
+        <app-recap></app-recap>
+      }
+      @case ('finished') {
+        <app-final-standings></app-final-standings>
+      }
+    }
+  </main>
+
+  <!-- Mini Leaderboard Sidebar -->
+  @if (showLeaderboard) {
+    <aside class="leaderboard-sidebar">
+      <div class="sidebar-header">
+        <h3>Leaderboard</h3>
+        <button class="close-btn" (click)="toggleLeaderboard()">&times;</button>
+      </div>
+      <div class="leaderboard-list">
+        @for (company of companies; track company._id; let i = $index) {
+          <div class="leaderboard-item">
+            <span class="rank">{{ i + 1 }}</span>
+            <span class="lb-name">{{ company.name }}</span>
+            <span class="lb-price">&#8377;{{ company.stockPrice | number:'1.2-2' }}</span>
+          </div>
+        }
+      </div>
+    </aside>
+  }
+</div>

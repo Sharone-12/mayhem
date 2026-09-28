@@ -1,0 +1,35 @@
+<div class="ticker-container">
+  <div class="ticker-track">
+    <div class="ticker-content">
+      <ng-container *ngFor="let company of companies; trackBy: trackByCompanyId">
+        <button
+          class="ticker-item"
+          [ngClass]="getPercentChange(company) | percentChange:'class'"
+          (click)="onCompanyClick(company.id)"
+        >
+          <span class="ticker-name">{{ company.ticker }}</span>
+          <span class="ticker-price">{{ company.stockPrice | inrCurrency }}</span>
+          <span class="ticker-change" [ngClass]="getPercentChange(company) | percentChange:'class'">
+            {{ getPercentChange(company) | percentChange }}
+          </span>
+        </button>
+      </ng-container>
+      <!-- Duplicate for seamless scroll loop -->
+      <ng-container *ngFor="let company of companies; trackBy: trackByCompanyId">
+        <button
+          class="ticker-item"
+          [ngClass]="getPercentChange(company) | percentChange:'class'"
+          (click)="onCompanyClick(company.id)"
+          aria-hidden="true"
+          tabindex="-1"
+        >
+          <span class="ticker-name">{{ company.ticker }}</span>
+          <span class="ticker-price">{{ company.stockPrice | inrCurrency }}</span>
+          <span class="ticker-change" [ngClass]="getPercentChange(company) | percentChange:'class'">
+            {{ getPercentChange(company) | percentChange }}
+          </span>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</div>

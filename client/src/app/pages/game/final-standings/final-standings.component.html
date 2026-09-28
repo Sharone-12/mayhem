@@ -1,0 +1,62 @@
+<div class="final-standings">
+  <!-- Winner Announcement -->
+  <div class="winner-section">
+    <div class="trophy-icon">&#127942;</div>
+    <h1 class="game-over-title">Game Over</h1>
+    @if (winner) {
+      <div class="winner-announcement">
+        <span class="winner-label">WINNER</span>
+        <span class="winner-name">{{ winner.name }}</span>
+        <span class="winner-price">&#8377;{{ winner.stockPrice | number:'1.2-2' }}</span>
+      </div>
+    }
+  </div>
+
+  <!-- Your Portfolio -->
+  <div class="your-result">
+    <h3 class="result-label">Your Final Portfolio</h3>
+    <span class="result-value">&#8377;{{ finalValue | number:'1.0-0' }}</span>
+  </div>
+
+  <!-- Leaderboard Table -->
+  <div class="leaderboard-section">
+    <h3 class="section-title">Company Rankings</h3>
+    <div class="leaderboard-table">
+      <div class="table-header">
+        <span class="col-rank">Rank</span>
+        <span class="col-company">Company</span>
+        <span class="col-price">Stock Price</span>
+      </div>
+      @for (company of sortedCompanies; track company._id; let i = $index) {
+        <div class="table-row" [class.gold]="i === 0" [class.silver]="i === 1" [class.bronze]="i === 2">
+          <span class="col-rank rank-medal">{{ getMedal(i) }}</span>
+          <div class="col-company company-cell">
+            <span class="row-name">{{ company.name }}</span>
+            <span class="row-sector">{{ company.sector }}</span>
+          </div>
+          <span class="col-price row-price">&#8377;{{ company.stockPrice | number:'1.2-2' }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Awards -->
+  <div class="awards-section">
+    <h3 class="section-title">Awards</h3>
+    <div class="awards-grid">
+      @for (award of awards; track award.title) {
+        <div class="award-card">
+          <span class="award-icon">{{ award.icon }}</span>
+          <span class="award-title">{{ award.title }}</span>
+          <span class="award-recipient">{{ award.recipient }}</span>
+          <span class="award-desc">{{ award.description }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Play Again -->
+  <button class="play-again-btn" (click)="playAgain()">
+    PLAY AGAIN
+  </button>
+</div>

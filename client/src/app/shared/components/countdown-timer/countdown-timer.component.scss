@@ -1,0 +1,90 @@
+:host {
+  display: block;
+}
+
+.countdown-timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: rgba(20, 20, 31, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  &.warning {
+    border-color: rgba(255, 214, 0, 0.4);
+    box-shadow: 0 0 12px rgba(255, 214, 0, 0.1);
+
+    .time-text {
+      color: #FFD600;
+      animation: pulse 1s ease-in-out infinite;
+    }
+
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #FFD600, #FFC107);
+    }
+  }
+
+  &.danger {
+    border-color: rgba(255, 23, 68, 0.5);
+    box-shadow: 0 0 16px rgba(255, 23, 68, 0.15);
+
+    .time-text {
+      color: #FF1744;
+      animation: pulse 0.5s ease-in-out infinite;
+    }
+
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #FF1744, #FF5252);
+    }
+  }
+
+  &.normal {
+    .time-text {
+      color: #E0E0E0;
+    }
+
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #00E676, #69F0AE);
+    }
+  }
+}
+
+.timer-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.time-text {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  transition: color 0.3s ease;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 1s linear, background 0.3s ease;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

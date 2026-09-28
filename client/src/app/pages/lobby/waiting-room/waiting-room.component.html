@@ -1,0 +1,140 @@
+<div class="waiting-room-page">
+  <div class="container">
+    <!-- Header -->
+    <div class="room-header">
+      <div class="room-info">
+        <h1 class="world-name">{{ worldName }}</h1>
+      </div>
+      <div class="room-code-display" (click)="copyCode()">
+        <span class="code-label">ROOM CODE</span>
+        <span class="code-value">{{ worldCode }}</span>
+        <span class="copy-hint">tap to copy</span>
+      </div>
+    </div>
+
+    <div class="two-column">
+      <!-- Left: Players -->
+      <div class="panel players-panel">
+        <h2 class="panel-title">Players <span class="count-badge">{{ players.length }}</span></h2>
+        <div class="player-list">
+          @for (player of players; track player._id) {
+            <div class="player-item">
+              <span class="player-avatar">{{ player.avatar }}</span>
+              <div class="player-info">
+                <span class="player-name">{{ player.username }}</span>
+                @if (companies.length > 0) {
+                  @for (company of companies; track company._id) {
+                    @if (company.ownerId === player._id) {
+                      <span class="player-company">{{ company.name }}</span>
+                    }
+                  }
+                }
+              </div>
+              <span class="player-status" [class.ready]="myCompanyCreated">
+                {{ myCompanyCreated ? 'Ready' : 'Setting up...' }}
+              </span>
+            </div>
+          }
+          @if (players.length === 0) {
+            <div class="empty-state">Waiting for players to join...</div>
+          }
+        </div>
+      </div>
+
+      <!-- Right: Company Creation or Companies List -->
+      <div class="panel company-panel">
+        @if (!myCompanyCreated) {
+          <h2 class="panel-title">Create Your Company</h2>
+          <div class="company-form">
+            <div class="form-group">
+              <label class="form-label">Company Name</label>
+              <input
+                type="text"
+                class="form-input"
+                [(ngModel)]="companyName"
+                placeholder="e.g., MemeCoin Inc."
+                minlength="3"
+                maxlength="30"
+              />
+              <span class="char-count">{{ companyName.length }}/30</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Sector</label>
+              <select class="form-select" [(ngModel)]="companySector">
+                @for (sector of sectors; track sector) {
+                  <option [value]="sector">{{ sector }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Tagline</label>
+              <input
+                type="text"
+                class="form-input"
+                [(ngModel)]="companyTagline"
+                placeholder="We put AI in your toaster"
+                maxlength="100"
+              />
+              <span class="char-count">{{ companyTagline.length }}/100</span>
+            </div>
+
+            <div class="starting-price">
+              <span class="price-label">Starting Stock Price</span>
+              <span class="price-value">&#8377;{{ startingPrice }}</span>
+            </div>
+
+            <button
+              class="create-company-btn"
+              [disabled]="companyName.trim().length < 3"
+              (click)="createCompany()"
+            >
+              CREATE COMPANY
+            </button>
+          </div>
+        } @else {
+          <h2 class="panel-title">Companies <span class="count-badge">{{ companies.length }}</span></h2>
+          <div class="company-list">
+            @for (company of companies; track company._id) {
+              <div class="company-card">
+                <div class="company-header-row">
+                  <span class="company-name">{{ company.name }}</span>
+                  <span class="sector-badge">{{ company.sector }}</span>
+                </div>
+                @if (company.tagline) {
+                  <p class="company-tagline">{{ company.tagline }}</p>
+                }
+                <div class="company-price-row">
+                  <span class="price-tag">IPO Price</span>
+                  <span class="price-amount">&#8377;{{ company.stockPrice }}</span>
+                </div>
+              </div>
+            }
+            @if (companies.length === 0) {
+              <div class="empty-state">No companies created yet.</div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Bottom Controls -->
+    <div class="bottom-controls">
+      @if (isHost) {
+        <button
+          class="start-game-btn"
+          [disabled]="!allReady"
+          (click)="startGame()"
+        >
+          {{ allReady ? 'START GAME' : 'WAITING FOR ALL PLAYERS...' }}
+        </button>
+      } @else {
+        <div class="waiting-message">
+          <div class="pulse-dot"></div>
+          Waiting for host to start the game...
+        </div>
+      }
+    </div>
+  </div>
+</div>

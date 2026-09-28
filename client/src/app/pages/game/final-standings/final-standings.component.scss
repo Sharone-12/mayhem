@@ -1,0 +1,290 @@
+$bg: #0A0A0F;
+$surface: #14141F;
+$surface-light: #1E1E2E;
+$primary: #00E676;
+$danger: #FF1744;
+$highlight: #FFD600;
+$text-primary: #E0E0E0;
+$text-secondary: #757575;
+$mono: 'JetBrains Mono', monospace;
+$sans: 'Inter', sans-serif;
+
+.final-standings {
+  max-width: 740px;
+  margin: 0 auto;
+  text-align: center;
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// Winner Section
+.winner-section {
+  margin-bottom: 32px;
+}
+
+.trophy-icon {
+  font-size: 80px;
+  margin-bottom: 8px;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.game-over-title {
+  font-family: $mono;
+  font-size: 40px;
+  font-weight: 900;
+  color: $text-primary;
+  margin: 0 0 16px;
+}
+
+.winner-announcement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.winner-label {
+  font-family: $mono;
+  font-size: 11px;
+  color: $highlight;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.winner-name {
+  font-family: $mono;
+  font-size: 28px;
+  font-weight: 700;
+  color: $highlight;
+  text-shadow: 0 0 20px rgba($highlight, 0.4);
+}
+
+.winner-price {
+  font-family: $mono;
+  font-size: 18px;
+  color: $primary;
+  font-weight: 600;
+}
+
+// Your Result
+.your-result {
+  background: $surface;
+  border: 1px solid rgba($primary, 0.3);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.result-label {
+  font-size: 12px;
+  color: $text-secondary;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 8px;
+}
+
+.result-value {
+  font-family: $mono;
+  font-size: 36px;
+  font-weight: 800;
+  color: $primary;
+}
+
+// Leaderboard
+.leaderboard-section {
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.section-title {
+  font-family: $mono;
+  font-size: 16px;
+  font-weight: 600;
+  color: $text-primary;
+  margin: 0 0 16px;
+  text-align: center;
+}
+
+.leaderboard-table {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.table-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: $text-secondary;
+}
+
+.table-row {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  background: $surface;
+  border: 1px solid rgba(white, 0.05);
+  border-radius: 10px;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateX(4px);
+  }
+
+  &.gold {
+    border-color: rgba($highlight, 0.3);
+    background: rgba($highlight, 0.04);
+  }
+
+  &.silver {
+    border-color: rgba(white, 0.12);
+    background: rgba(white, 0.02);
+  }
+
+  &.bronze {
+    border-color: rgba(#cd7f32, 0.2);
+  }
+}
+
+.col-rank {
+  min-width: 50px;
+}
+
+.rank-medal {
+  font-size: 20px;
+}
+
+.col-company {
+  flex: 1;
+}
+
+.company-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.row-name {
+  font-weight: 600;
+  font-size: 15px;
+  color: $text-primary;
+}
+
+.row-sector {
+  font-size: 11px;
+  color: $text-secondary;
+}
+
+.col-price {
+  min-width: 120px;
+  text-align: right;
+}
+
+.row-price {
+  font-family: $mono;
+  font-size: 16px;
+  font-weight: 700;
+  color: $primary;
+}
+
+// Awards
+.awards-section {
+  margin-bottom: 36px;
+}
+
+.awards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.award-card {
+  background: $surface;
+  border: 1px solid rgba(white, 0.06);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+.award-icon {
+  font-size: 32px;
+}
+
+.award-title {
+  font-family: $mono;
+  font-size: 12px;
+  font-weight: 600;
+  color: $highlight;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.award-recipient {
+  font-size: 16px;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+.award-desc {
+  font-size: 11px;
+  color: $text-secondary;
+  text-align: center;
+}
+
+// Play Again Button
+.play-again-btn {
+  padding: 18px 48px;
+  background: $primary;
+  color: $bg;
+  border: none;
+  border-radius: 12px;
+  font-family: $mono;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    box-shadow: 0 0 30px rgba($primary, 0.4);
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 480px) {
+  .game-over-title {
+    font-size: 28px;
+  }
+
+  .winner-name {
+    font-size: 22px;
+  }
+
+  .result-value {
+    font-size: 28px;
+  }
+
+  .awards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

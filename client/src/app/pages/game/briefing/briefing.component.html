@@ -1,0 +1,18 @@
+@if (gameState.currentWorld$ | async; as world) {
+  <div class="briefing">
+    <div class="briefing-content">
+      <span class="briefing-label">MARKET CONDITION</span>
+      <h1 class="condition-name">{{ world.currentMarketCondition?.name || 'Loading...' }}</h1>
+      <p class="condition-desc">{{ world.currentMarketCondition?.description }}</p>
+
+      <div class="effects-grid">
+        @for (effect of world.currentMarketCondition?.effects || []; track effect.sector) {
+          <div class="effect-card" [class.positive]="effect.modifier > 0" [class.negative]="effect.modifier < 0">
+            <span class="effect-sector">{{ effect.sector }}</span>
+            <span class="effect-value">{{ effect.modifier > 0 ? '+' : '' }}{{ (effect.modifier * 100).toFixed(0) }}%</span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+}

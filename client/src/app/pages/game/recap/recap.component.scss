@@ -1,0 +1,206 @@
+$bg: #0A0A0F;
+$surface: #14141F;
+$surface-light: #1E1E2E;
+$primary: #00E676;
+$danger: #FF1744;
+$highlight: #FFD600;
+$text-primary: #E0E0E0;
+$text-secondary: #757575;
+$mono: 'JetBrains Mono', monospace;
+$sans: 'Inter', sans-serif;
+
+.recap {
+  max-width: 900px;
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.recap-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.recap-title {
+  font-family: $mono;
+  font-size: 28px;
+  font-weight: 700;
+  color: $text-primary;
+  margin: 0 0 4px;
+}
+
+.recap-subtitle {
+  color: $text-secondary;
+  font-size: 14px;
+  margin: 0;
+}
+
+// Stats Grid
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.stat-card {
+  background: $surface;
+  border: 1px solid rgba(white, 0.06);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.stat-icon {
+  font-size: 28px;
+}
+
+.stat-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: $text-secondary;
+  font-weight: 600;
+}
+
+.stat-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+.stat-value {
+  font-family: $mono;
+  font-size: 13px;
+  color: $primary;
+  font-weight: 600;
+}
+
+// Portfolio Summary
+.portfolio-summary {
+  background: $surface;
+  border: 1px solid rgba($primary, 0.15);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 28px;
+}
+
+.summary-title {
+  font-family: $mono;
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-secondary;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0 0 16px;
+}
+
+.portfolio-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.portfolio-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.ps-label {
+  font-size: 11px;
+  color: $text-secondary;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ps-value {
+  font-family: $mono;
+  font-size: 22px;
+  font-weight: 700;
+  color: $text-primary;
+
+  &.green { color: $primary; }
+  &.red { color: $danger; }
+}
+
+// Movers Section
+.movers-section {
+  margin-bottom: 24px;
+}
+
+.movers-title {
+  font-family: $mono;
+  font-size: 16px;
+  font-weight: 600;
+  color: $text-primary;
+  margin: 0 0 14px;
+}
+
+.movers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.mover-card {
+  background: $surface;
+  border: 1px solid rgba(white, 0.06);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mover-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.mover-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.mover-sector {
+  font-size: 10px;
+  color: $text-secondary;
+}
+
+.mover-price {
+  font-family: $mono;
+  font-size: 18px;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+.mover-change {
+  font-family: $mono;
+  font-size: 14px;
+  font-weight: 600;
+
+  &.positive { color: $primary; }
+  &.negative { color: $danger; }
+}

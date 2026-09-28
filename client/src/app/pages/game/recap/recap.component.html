@@ -1,0 +1,60 @@
+<div class="recap">
+  <div class="recap-header">
+    <h2 class="recap-title">Round {{ currentRound$ | async }} Recap</h2>
+    <p class="recap-subtitle">Here's how the market moved this round</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    @for (stat of recapStats; track stat.title) {
+      <div class="stat-card">
+        <span class="stat-icon">{{ stat.icon }}</span>
+        <span class="stat-title">{{ stat.title }}</span>
+        <span class="stat-name">{{ stat.name }}</span>
+        <span class="stat-value">{{ stat.value }}</span>
+      </div>
+    }
+  </div>
+
+  <!-- Portfolio Summary -->
+  <div class="portfolio-summary">
+    <h3 class="summary-title">Your Portfolio</h3>
+    <div class="portfolio-stats">
+      <div class="portfolio-stat">
+        <span class="ps-label">Total Value</span>
+        <span class="ps-value green">&#8377;{{ portfolioValue | number:'1.0-0' }}</span>
+      </div>
+      <div class="portfolio-stat">
+        <span class="ps-label">Cash</span>
+        <span class="ps-value">&#8377;{{ portfolioCash | number:'1.0-0' }}</span>
+      </div>
+      <div class="portfolio-stat">
+        <span class="ps-label">Round Change</span>
+        <span class="ps-value" [class.green]="getValueChange() >= 0" [class.red]="getValueChange() < 0">
+          {{ getValueChange() >= 0 ? '+' : '' }}{{ getValueChange() | number:'1.1-1' }}%
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Company Price Movements -->
+  <div class="movers-section">
+    <h3 class="movers-title">Market Movers</h3>
+    <div class="movers-grid">
+      @for (company of (companies$ | async) || []; track company._id) {
+        <div class="mover-card">
+          <div class="mover-header">
+            <span class="mover-name">{{ company.name }}</span>
+            <span class="mover-sector">{{ company.sector }}</span>
+          </div>
+          <span class="mover-price">&#8377;{{ company.stockPrice | number:'1.2-2' }}</span>
+          <span class="mover-change"
+            [class.positive]="getPriceChange(company) >= 0"
+            [class.negative]="getPriceChange(company) < 0">
+            {{ getPriceChange(company) >= 0 ? '+' : '' }}{{ getPriceChange(company) | number:'1.1-1' }}%
+          </span>
+        </div>
+      }
+    </div>
+  </div>
+</div>

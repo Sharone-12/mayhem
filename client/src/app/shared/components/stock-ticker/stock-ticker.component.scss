@@ -1,0 +1,107 @@
+:host {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
+.ticker-container {
+  background: #0A0A0F;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 8px 0;
+  overflow: hidden;
+}
+
+.ticker-track {
+  overflow: hidden;
+  width: 100%;
+}
+
+.ticker-content {
+  display: flex;
+  gap: 0;
+  animation: ticker-scroll 30s linear infinite;
+  width: max-content;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  &.positive {
+    .ticker-change {
+      color: #00E676;
+    }
+  }
+
+  &.negative {
+    .ticker-change {
+      color: #FF1744;
+    }
+  }
+
+  &.neutral {
+    .ticker-change {
+      color: #757575;
+    }
+  }
+}
+
+.ticker-name {
+  font-family: 'Inter', 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #E0E0E0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ticker-price {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #E0E0E0;
+}
+
+.ticker-change {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  &.positive {
+    color: #00E676;
+  }
+
+  &.negative {
+    color: #FF1744;
+  }
+
+  &.neutral {
+    color: #757575;
+  }
+}
+
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

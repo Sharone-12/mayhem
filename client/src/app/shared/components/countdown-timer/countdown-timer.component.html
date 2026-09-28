@@ -1,0 +1,11 @@
+<div class="countdown-timer" [ngClass]="timerClass">
+  <div class="timer-display">
+    <span class="time-text">{{ displayTime }}</span>
+  </div>
+  <div class="progress-bar-track">
+    <div
+      class="progress-bar-fill"
+      [style.width.%]="progressPercent"
+    ></div>
+  </div>
+</div>

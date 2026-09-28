@@ -1,0 +1,153 @@
+:host {
+  display: block;
+}
+
+.company-card {
+  background: #14141F;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 16px;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  &.positive {
+    border-left: 3px solid #00E676;
+
+    &:hover {
+      border-color: rgba(0, 230, 118, 0.3);
+    }
+  }
+
+  &.negative {
+    border-left: 3px solid #FF1744;
+
+    &:hover {
+      border-color: rgba(255, 23, 68, 0.3);
+    }
+  }
+
+  &.neutral {
+    border-left: 3px solid #757575;
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.company-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.company-name {
+  font-family: 'Inter', 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #E0E0E0;
+  margin: 0;
+}
+
+.sector-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Inter', 'Space Grotesk', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(255, 214, 0, 0.12);
+  color: #FFD600;
+  border: 1px solid rgba(255, 214, 0, 0.2);
+}
+
+.company-tagline {
+  font-family: 'Inter', 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  color: #757575;
+  margin: 0 0 12px 0;
+  font-style: italic;
+}
+
+.price-section {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.stock-price {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 1.4rem;
+  font-weight: 700;
+
+  &.positive {
+    color: #00E676;
+  }
+
+  &.negative {
+    color: #FF1744;
+  }
+
+  &.neutral {
+    color: #E0E0E0;
+  }
+}
+
+.percent-change {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+
+  &.positive {
+    color: #00E676;
+  }
+
+  &.negative {
+    color: #FF1744;
+  }
+
+  &.neutral {
+    color: #757575;
+  }
+}
+
+.details-section {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-label {
+  font-family: 'Inter', 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  color: #757575;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-value {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.8rem;
+  color: #E0E0E0;
+}

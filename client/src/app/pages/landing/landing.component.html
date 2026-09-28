@@ -1,0 +1,104 @@
+<div class="landing-page">
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="grid-lines"></div>
+    <div class="price-lines">
+      <svg class="price-svg" viewBox="0 0 1200 400" preserveAspectRatio="none">
+        <polyline class="line line-1" points="0,300 100,280 200,250 300,270 400,200 500,180 600,220 700,150 800,170 900,120 1000,100 1100,130 1200,80" />
+        <polyline class="line line-2" points="0,350 100,340 200,320 300,350 400,310 500,290 600,300 700,260 800,280 900,240 1000,250 1100,210 1200,200" />
+        <polyline class="line line-3" points="0,200 100,220 200,260 300,240 400,280 500,300 600,270 700,310 800,290 900,330 1000,320 1100,350 1200,340" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- Stock Ticker -->
+  <div class="ticker-bar">
+    <div class="ticker-track">
+      <div class="ticker-content">
+        @for (item of tickerItems; track item.symbol) {
+          <span class="ticker-item">
+            <span class="ticker-symbol">{{ item.symbol }}</span>
+            <span class="ticker-price">{{ item.price | number:'1.2-2' }}</span>
+            <span class="ticker-change" [class.positive]="item.change >= 0" [class.negative]="item.change < 0">
+              {{ item.change >= 0 ? '+' : '' }}{{ item.change | number:'1.2-2' }}%
+            </span>
+          </span>
+        }
+        @for (item of tickerItems; track item.symbol; let i = $index) {
+          <span class="ticker-item" [attr.aria-hidden]="true">
+            <span class="ticker-symbol">{{ item.symbol }}</span>
+            <span class="ticker-price">{{ item.price | number:'1.2-2' }}</span>
+            <span class="ticker-change" [class.positive]="item.change >= 0" [class.negative]="item.change < 0">
+              {{ item.change >= 0 ? '+' : '' }}{{ item.change | number:'1.2-2' }}%
+            </span>
+          </span>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Title -->
+    <div class="hero">
+      <h1 class="title">
+        <span class="title-text">MARKET</span>
+        <span class="title-text glow">MAYHEM</span>
+      </h1>
+      <p class="tagline">Trade. Manipulate. Dominate.</p>
+    </div>
+
+    <!-- Login Form -->
+    @if (!isLoggedIn) {
+      <div class="login-section">
+        <div class="input-group">
+          <input
+            type="text"
+            class="username-input"
+            [(ngModel)]="username"
+            placeholder="Enter your name"
+            maxlength="20"
+            (keyup.enter)="canEnter ? enter() : null"
+          />
+        </div>
+
+        <div class="avatar-picker">
+          <p class="picker-label">Choose your avatar</p>
+          <div class="avatar-grid">
+            @for (avatar of avatars; track avatar.name) {
+              <button
+                class="avatar-btn"
+                [class.selected]="selectedAvatar === avatar.emoji"
+                (click)="selectAvatar(avatar)"
+                [title]="avatar.name"
+              >
+                {{ avatar.emoji }}
+              </button>
+            }
+          </div>
+        </div>
+
+        <button
+          class="enter-btn"
+          [disabled]="!canEnter"
+          (click)="enter()"
+        >
+          ENTER THE MARKET
+        </button>
+      </div>
+    }
+
+    <!-- Logged In Actions -->
+    @if (isLoggedIn) {
+      <div class="action-section">
+        <button class="action-btn create-btn" (click)="navigateToCreate()">
+          <span class="btn-icon">+</span>
+          <span class="btn-label">Create World</span>
+        </button>
+        <button class="action-btn join-btn" (click)="navigateToJoin()">
+          <span class="btn-icon">&gt;</span>
+          <span class="btn-label">Join World</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

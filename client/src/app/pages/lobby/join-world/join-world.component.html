@@ -1,0 +1,40 @@
+<div class="join-world-page">
+  <div class="container">
+    <button class="back-btn" (click)="goBack()">
+      <span class="back-arrow">&larr;</span> Back
+    </button>
+
+    <h1 class="page-title">Join World</h1>
+    <p class="page-subtitle">Enter the 6-character room code</p>
+
+    <div class="code-card">
+      <div class="code-inputs" (paste)="onPaste($event)">
+        @for (digit of codeDigits; track $index; let i = $index) {
+          <input
+            #codeInput
+            type="text"
+            class="code-box"
+            [value]="digit"
+            maxlength="1"
+            (input)="onInput(i, $event)"
+            (keydown)="onKeydown(i, $event)"
+            [class.filled]="digit.length > 0"
+            autocomplete="off"
+          />
+        }
+      </div>
+
+      @if (error) {
+        <div class="error-message">{{ error }}</div>
+      }
+    </div>
+
+    <button
+      class="join-btn"
+      [disabled]="!isValid || isSubmitting"
+      (click)="joinWorld()"
+    >
+      {{ isSubmitting ? 'JOINING...' : 'JOIN GAME' }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+@if (!submitted) {
+  <div class="ceo-phase">
+    <h2 class="section-title">Choose Your CEO Action</h2>
+    <p class="section-subtitle">Select one action for your company this round</p>
+
+    <div class="actions-grid">
+      @for (action of actions; track action.type) {
+        <div
+          class="action-card"
+          [class.selected]="selectedAction?.type === action.type"
+          [class.disabled]="!isAvailable(action)"
+          (click)="selectAction(action)"
+        >
+          <span class="action-icon">{{ action.icon }}</span>
+          <h3 class="action-name">{{ action.name }}</h3>
+          <span class="action-cost">{{ action.costLabel }}</span>
+          <p class="action-effect">{{ action.effect }}</p>
+          @if (action.minRound) {
+            <span class="round-req">Round {{ action.minRound }}+</span>
+          }
+        </div>
+      }
+    </div>
+
+    @if (selectedAction) {
+      <div class="confirm-section">
+        <h3 class="confirm-title">Confirm: {{ selectedAction.name }}</h3>
+
+        @if (selectedAction.needsProductName) {
+          <div class="form-group">
+            <label class="form-label">Product Name</label>
+            <input
+              type="text"
+              class="form-input"
+              [(ngModel)]="productName"
+              maxlength="50"
+              placeholder="e.g., AI Toaster Pro"
+            />
+          </div>
+        }
+
+        @if (selectedAction.needsTarget) {
+          <div class="form-group">
+            <label class="form-label">Target Company</label>
+            <select class="form-select" [(ngModel)]="targetCompanyId">
+              <option value="">Select a company...</option>
+              @for (company of otherCompanies; track company._id) {
+                <option [value]="company._id">{{ company.name }} ({{ company.sector }})</option>
+              }
+            </select>
+          </div>
+        }
+
+        <button
+          class="confirm-btn"
+          (click)="confirmAction()"
+          [disabled]="(selectedAction.needsTarget && !targetCompanyId) || (selectedAction.needsProductName && !productName.trim())"
+        >
+          CONFIRM ACTION
+        </button>
+      </div>
+    }
+  </div>
+} @else {
+  <div class="submitted-state">
+    <div class="check-circle">
+      <span class="check-icon">&check;</span>
+    </div>
+    <h2 class="submitted-title">Action Submitted!</h2>
+    <p class="submitted-desc">Waiting for other CEOs to decide...</p>
+    <div class="submitted-players">
+      @for (playerId of submittedPlayers; track playerId) {
+        <span class="submitted-dot"></span>
+      }
+    </div>
+  </div>
+}

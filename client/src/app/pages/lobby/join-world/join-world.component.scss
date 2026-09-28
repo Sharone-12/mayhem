@@ -1,0 +1,149 @@
+$bg: #0A0A0F;
+$surface: #14141F;
+$primary: #00E676;
+$danger: #FF1744;
+$highlight: #FFD600;
+$text-primary: #E0E0E0;
+$text-secondary: #757575;
+$mono: 'JetBrains Mono', monospace;
+$sans: 'Inter', sans-serif;
+
+.join-world-page {
+  min-height: 100vh;
+  background: $bg;
+  color: $text-primary;
+  font-family: $sans;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: $text-secondary;
+  font-family: $sans;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px 0;
+  transition: color 0.2s;
+  float: left;
+
+  &:hover {
+    color: $text-primary;
+  }
+}
+
+.page-title {
+  font-family: $mono;
+  font-size: 32px;
+  font-weight: 700;
+  color: $primary;
+  margin: 60px 0 4px;
+  clear: both;
+}
+
+.page-subtitle {
+  color: $text-secondary;
+  font-size: 14px;
+  margin-bottom: 40px;
+}
+
+.code-card {
+  background: $surface;
+  border: 1px solid rgba(white, 0.06);
+  border-radius: 20px;
+  padding: 40px 24px;
+}
+
+.code-inputs {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.code-box {
+  width: 52px;
+  height: 64px;
+  background: $bg;
+  border: 2px solid rgba(white, 0.1);
+  border-radius: 12px;
+  color: $text-primary;
+  font-family: $mono;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  outline: none;
+  transition: all 0.2s;
+  caret-color: $primary;
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 12px rgba($primary, 0.2);
+  }
+
+  &.filled {
+    border-color: rgba($primary, 0.5);
+    background: rgba($primary, 0.05);
+  }
+}
+
+.error-message {
+  margin-top: 16px;
+  padding: 10px 16px;
+  background: rgba($danger, 0.1);
+  border: 1px solid rgba($danger, 0.3);
+  border-radius: 8px;
+  color: $danger;
+  font-size: 13px;
+  font-family: $mono;
+}
+
+.join-btn {
+  width: 100%;
+  padding: 16px 32px;
+  background: $primary;
+  color: $bg;
+  border: none;
+  border-radius: 12px;
+  font-family: $mono;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 24px;
+
+  &:hover:not(:disabled) {
+    box-shadow: 0 0 24px rgba($primary, 0.4);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+@media (max-width: 400px) {
+  .code-box {
+    width: 44px;
+    height: 56px;
+    font-size: 22px;
+  }
+
+  .code-inputs {
+    gap: 6px;
+  }
+}

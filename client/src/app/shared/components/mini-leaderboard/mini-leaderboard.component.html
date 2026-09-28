@@ -1,0 +1,22 @@
+<div class="leaderboard">
+  <div class="leaderboard-header">
+    <h3 class="leaderboard-title">{{ title }}</h3>
+    <span class="value-label">{{ valueLabel }}</span>
+  </div>
+
+  <div class="leaderboard-list">
+    <div
+      class="leaderboard-row"
+      *ngFor="let player of sortedPlayers; let i = index; trackBy: trackByUsername"
+      [ngClass]="getRankClass(i)"
+    >
+      <span class="rank">{{ i + 1 }}</span>
+      <app-player-avatar
+        [avatar]="player.avatar"
+        [username]="player.username"
+        size="sm"
+      ></app-player-avatar>
+      <span class="player-value">{{ player.value | inrCurrency }}</span>
+    </div>
+  </div>
+</div>

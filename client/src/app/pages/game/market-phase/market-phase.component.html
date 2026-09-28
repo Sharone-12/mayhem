@@ -1,0 +1,166 @@
+<div class="market-phase">
+  <!-- Trading Panel (Left) -->
+  <div class="trading-panel">
+    <h2 class="panel-title">Trading Floor</h2>
+
+    <div class="cash-bar">
+      <span class="cash-label">Available Cash</span>
+      <span class="cash-amount">&#8377;{{ currentCash | number:'1.0-0' }}</span>
+    </div>
+
+    <div class="company-list">
+      @for (company of (companies$ | async) || []; track company._id) {
+        <div
+          class="company-row"
+          [class.expanded]="selectedCompanyId === company._id"
+          (click)="selectCompany(company._id)"
+        >
+          <div class="company-info-row">
+            <div class="company-main">
+              <span class="company-name">{{ company.name }}</span>
+              <span class="company-sector">{{ company.sector }}</span>
+            </div>
+            <div class="company-price-info">
+              <span class="company-price">&#8377;{{ company.stockPrice | number:'1.2-2' }}</span>
+              <span class="company-change"
+                [class.positive]="getPriceChange(company) >= 0"
+                [class.negative]="getPriceChange(company) < 0">
+                {{ getPriceChange(company) >= 0 ? '+' : '' }}{{ getPriceChange(company) | number:'1.1-1' }}%
+              </span>
+            </div>
+          </div>
+
+          @if (getHeldShares(company._id) > 0) {
+            <div class="held-shares-row">
+              <span class="held-label">Holding:</span>
+              <span class="held-count">{{ getHeldShares(company._id) }} shares</span>
+            </div>
+          }
+
+          <!-- Trade Controls (Expanded) -->
+          @if (selectedCompanyId === company._id) {
+            <div class="trade-controls" (click)="$event.stopPropagation()">
+              <div class="quantity-section">
+                <label class="qty-label">Quantity</label>
+                <div class="qty-buttons">
+                  @for (amt of quickAmounts; track amt) {
+                    <button
+                      class="qty-btn"
+                      [class.active]="tradeQuantity === amt"
+                      (click)="setQuantity(amt)"
+                    >{{ amt }}</button>
+                  }
+                  <button class="qty-btn max-btn" (click)="setMaxBuy()">MAX</button>
+                </div>
+              </div>
+
+              <div class="quantity-input-row">
+                <input
+                  type="number"
+                  class="qty-input"
+                  [(ngModel)]="tradeQuantity"
+                  min="1"
+                />
+                <span class="estimated-cost">
+                  Est. &#8377;{{ estimatedCost | number:'1.0-0' }}
+                </span>
+              </div>
+
+              <div class="trade-actions">
+                <button
+                  class="trade-btn buy-btn"
+                  [disabled]="estimatedCost > currentCash"
+                  (click)="executeTrade('buy')"
+                >
+                  BUY
+                </button>
+                <button
+                  class="trade-btn sell-btn"
+                  [disabled]="getHeldShares(company._id) < tradeQuantity"
+                  (click)="executeTrade('sell')"
+                >
+                  SELL
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- News Panel (Right) -->
+  <div class="news-panel">
+    <h2 class="panel-title">News Wire</h2>
+
+    <!-- News Composer -->
+    <div class="news-composer">
+      <textarea
+        class="news-textarea"
+        [(ngModel)]="newsContent"
+        placeholder="Write a market rumor..."
+        maxlength="200"
+        rows="3"
+      ></textarea>
+
+      <div class="composer-controls">
+        <select class="news-company-select" [(ngModel)]="newsTargetCompanyId">
+          <option value="">Target company...</option>
+          @for (company of (companies$ | async) || []; track company._id) {
+            <option [value]="company._id">{{ company.name }}</option>
+          }
+        </select>
+
+        <div class="sentiment-toggle">
+          <button
+            class="sentiment-btn bullish"
+            [class.active]="newsSentiment === 'bullish'"
+            (click)="newsSentiment = 'bullish'"
+          >Bullish</button>
+          <button
+            class="sentiment-btn bearish"
+            [class.active]="newsSentiment === 'bearish'"
+            (click)="newsSentiment = 'bearish'"
+          >Bearish</button>
+        </div>
+      </div>
+
+      <div class="composer-footer">
+        <span class="posts-remaining">{{ newsPostsRemaining }} posts remaining</span>
+        <button
+          class="post-btn"
+          [disabled]="!newsContent.trim() || !newsTargetCompanyId || newsPostsRemaining <= 0"
+          (click)="postNews()"
+        >
+          POST
+        </button>
+      </div>
+    </div>
+
+    <!-- News Feed -->
+    <div class="news-feed">
+      @for (news of (newsFeed$ | async) || []; track news._id) {
+        <div class="news-item" [class.my-news]="isMyNews(news)">
+          <div class="news-header">
+            <div class="news-author-info">
+              <span class="news-avatar">{{ news.authorAvatar }}</span>
+              <span class="news-author">{{ news.authorUsername || 'Player' }}</span>
+            </div>
+            @if (news.targetCompanyName) {
+              <span class="news-target-tag">{{ news.targetCompanyName }}</span>
+            }
+          </div>
+          <p class="news-content">{{ news.content }}</p>
+          <div class="news-reactions">
+            <button class="reaction-btn" (click)="reactToNews(news._id, 'rocket')">
+              &#128640; {{ news.reactions?.rocket?.length || 0 }}
+            </button>
+            <button class="reaction-btn" (click)="reactToNews(news._id, 'skull')">
+              &#128128; {{ news.reactions?.skull?.length || 0 }}
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
